@@ -8,6 +8,10 @@ const {
   bot,
   lang,
 } = require('../lib/')
+
+const footerText = "\n\nPowered by WaMlbbcommunity"
+const footerImage = "https://files.catbox.moe/iutla8.jpg"
+
 bot(
   {
     pattern: 'help ?(.*)',
@@ -49,7 +53,7 @@ bot(
 
     CMD_HELP.push('╰────────────────')
 
-    return await message.send(CMD_HELP.join('\n'))
+    await message.send(CMD_HELP.join('\n') + footerText, { image: footerImage })
   }
 )
 
@@ -68,9 +72,10 @@ bot(
       .map((command) => `- *${command.name}*\n${command.desc}\n`)
       .join('\n')
 
-    await message.send(commandList)
+    await message.send(commandList + footerText, { image: footerImage })
   }
 )
+
 bot(
   {
     pattern: 'menu ?(.*)',
@@ -116,7 +121,8 @@ bot(
           msg += ` │ ${textToStylist(plugin.toUpperCase(), 'mono')}\n`
         })
       msg += ` ╰─────────────────`
-      return await message.send(msg)
+      await message.send(msg + footerText, { image: footerImage })
+      return
     }
 
     for (const command of sortedCommandKeys) {
@@ -129,6 +135,6 @@ bot(
       msg += ` ╰─────────────────\n`
     }
 
-    await message.send(msg.trim())
+    await message.send(msg.trim() + footerText, { image: footerImage })
   }
 )
